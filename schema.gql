@@ -1,0 +1,111 @@
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+#User
+type LogIn {
+  token: String!
+}
+
+input LoginInput {
+  username: String!
+  password: String!
+}
+
+type UserConnection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+}
+
+type UserEdge {
+  cursor: String!
+  node: User!
+}
+
+type User {
+  title: String!
+  model: String!
+  body: String!
+}
+
+input UserInput {
+  title: String!
+  model: String!
+  body: String!
+}
+
+#Post
+type PostConnection {
+  edges: [PostEdge!]!
+  pageInfo: PageInfo!
+}
+
+type PostEdge {
+  cursor: String!
+  node: Post!
+}
+
+type Post {
+  title: String!
+  model: String!
+  body: String!
+}
+
+input PostInput {
+  title: String!
+  model: String!
+  body: String!
+}
+
+#Image
+type ImageConnection {
+  edges: [ImageEdge!]!
+  pageInfo: PageInfo!
+}
+
+type ImageEdge {
+  cursor: String!
+  node: Image!
+}
+
+type Image {
+  title: String!
+  filename: String!
+  src: String!
+}
+
+input ImageInput {
+  title: String!
+  filename: String!
+}
+
+#Mutation
+type Mutation {
+  login(data: LoginInput!): LogIn!
+
+  createUser(data: UserInput!): User!
+  updateUser(id: ID!, data: UserInput!): User
+  deleteUser(id: ID!): Boolean!
+ 
+  createPost(data: PostInput!): Post!
+  updatePost(id: ID!, data: PostInput!): Post
+  deletePost(id: ID!): Boolean!
+
+  createImage(data: ImageInput!): Image!
+  updateImage(id: ID!, data: ImageInput!): Image
+  deleteImage(id: ID!): Boolean!
+}
+
+type Query {
+  allUsers(after: String, before: String, first: Int, last: Int): UserConnection!
+  user(id: ID!): User!
+
+  allPosts(after: String, before: String, first: Int, last: Int): PostConnection!
+  post(id: ID!): Post!
+
+  allImages(after: String, before: String, first: Int, last: Int): ImageConnection!
+  image(id: ID!): Image!
+}
