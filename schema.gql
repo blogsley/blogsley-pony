@@ -26,9 +26,11 @@ type UserEdge {
 }
 
 type User {
-  title: String!
-  model: String!
-  body: String!
+  id: ID!
+  email: String!
+  username: String!
+  firstName: String!
+  lastName: String!
 }
 
 input UserInput {
@@ -49,6 +51,7 @@ type PostEdge {
 }
 
 type Post {
+  id: ID!
   title: String!
   model: String!
   body: String!
@@ -58,6 +61,11 @@ input PostInput {
   title: String!
   model: String!
   body: String!
+}
+
+type PostEvent {
+  kind: String!
+  ok: Boolean!
 }
 
 #Image
@@ -91,7 +99,7 @@ type Mutation {
   deleteUser(id: ID!): Boolean!
  
   createPost(data: PostInput!): Post!
-  updatePost(id: ID!, data: PostInput!): Post
+  updatePost(id: ID!, data: PostInput!): PostEvent
   deletePost(id: ID!): Boolean!
 
   createImage(data: ImageInput!): Image!
@@ -108,4 +116,8 @@ type Query {
 
   allImages(after: String, before: String, first: Int, last: Int): ImageConnection!
   image(id: ID!): Image!
+}
+
+type Subscription {
+  postEvents(id: ID!): PostEvent
 }

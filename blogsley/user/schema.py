@@ -21,8 +21,8 @@ class UserConnection(relay.Connection):
 class UserInput(graphene.InputObjectType):
     username = graphene.String()
     email = graphene.String()
-    first_name = graphene.String()
-    last_name = graphene.String()
+    firstName = graphene.String()
+    lastName = graphene.String()
 
 class LoginInput(graphene.InputObjectType):
     username = graphene.String()
@@ -40,8 +40,8 @@ class CreateUser(graphene.Mutation):
         user = User(
             username=data.username,
             email=data.email,
-            first_name=data.first_name,
-            last_name=data.last_name,
+            firstName=data.firstName,
+            lastName=data.lastName,
             # role='Reader',
             # about_me='I am a Reader'
         )

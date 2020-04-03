@@ -1,6 +1,6 @@
 import jwt
 import datetime
-from blogsley.config import app
+from blogsley.config import config
 from blogsley.user import User
 
 def encode_auth_token(**kwargs):
@@ -14,7 +14,7 @@ def encode_auth_token(**kwargs):
 
     return jwt.encode(
         payload,
-        app.config.get('SECRET_KEY')
+        config.get('SECRET_KEY')
     )
 
 def load_user(info):

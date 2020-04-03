@@ -1,3 +1,4 @@
+from pony.orm import db_session
 from blogsley.schema import query, mutation
 from blogsley.config import db
 from blogsley.user import User
@@ -8,6 +9,7 @@ from blogsley.auth.jwt import encode_auth_token, decode_auth_token
 
 #login(data: LoginInput!): LogIn!
 @mutation.field("login")
+@db_session
 def resolve_login(_, info, data):
     print('Login')
     print(data)
@@ -20,7 +22,7 @@ def resolve_login(_, info, data):
     if not password:
         raise Exception('Password missing!')
 
-    user = User.select(lambda p:p.username == username)
+    user = User.select(lambda p:p.username == username).first()
     if user is None or not user.check_password(password):
         raise Exception('No such user or invalid password!')
 

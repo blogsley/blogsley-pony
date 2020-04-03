@@ -1,8 +1,12 @@
+from pony.orm import db_session
+
 from blogsley.config import db
+from blogsley.security import generate_password_hash
+
 from blogsley.user import User
 from blogsley.post import Post
 
-model = '''
+model = """
 {
   "type": "page",
   "id": "FlvecVm25UUdxaHPkK372",
@@ -187,64 +191,76 @@ model = '''
     }
   ]
 }
-'''
+"""
+
+
 @db_session
 def populate():
-  u = User(username='admin',
-    first_name='The',
-    last_name='Admin',
-    email='admin@example.com',
-    role='Admin',
-    about_me='I am the Admin'
-  )
-  u.set_password('admin')
+    (salt, key) = generate_password_hash("blogsley")
+    u = User(
+        username="admin",
+        firstName="The",
+        lastName="Admin",
+        email="admin@example.com",
+        role="Admin",
+        aboutMe="I am the Admin",
+        password_salt=salt,
+        password_hash=key,
+    )
+    u.set_password("admin")
 
-  u = User(username='john',
-    first_name='John',
-    last_name='Doe',
-    email='john@example.com',
-    role='Editor',
-    about_me='I am an Editor'
-  )
-  u.set_password('x')
+    u = User(
+        username="john",
+        firstName="John",
+        lastName="Doe",
+        email="john@example.com",
+        role="Editor",
+        aboutMe="I am an Editor",
+        password_salt=salt,
+        password_hash=key,
+    )
 
-  p = Post(
-    title='Pugsley, a python user group webapp',
-    model=model,
-    body='Pugsley is a webapp written in Python',
-    author=u
-  )
+    p = Post(
+        title="Pugsley, a python user group webapp",
+        model=model,
+        body="Pugsley is a webapp written in Python",
+        author=u,
+    )
 
-  u = User(
-    username='susan',
-    first_name='Susan',
-    last_name='Smith',
-    email='susan@example.com',
-    role='Author',
-    about_me='I am an Author'
-  )
-  u.set_password('x')
+    u = User(
+        username="susan",
+        firstName="Susan",
+        lastName="Smith",
+        email="susan@example.com",
+        role="Author",
+        aboutMe="I am an Author",
+        password_salt=salt,
+        password_hash=key,
+    )
 
-  p = Post(
-    title='Python is cool!',
-    model=model,
-    body='I love writing programs in Python',
-    author=u
-  )
+    p = Post(
+        title="Python is cool!",
+        model=model,
+        body="I love writing programs in Python",
+        author=u,
+    )
 
-  u = User(
-    username='joe',
-    first_name='Joe',
-    last_name='Jackson',
-    email='joe@example.com',
-    role='Reader',
-    about_me='I am a Reader'
-  )
-  u.set_password('x')
+    u = User(
+        username="joe",
+        firstName="Joe",
+        lastName="Jackson",
+        email="joe@example.com",
+        role="Reader",
+        aboutMe="I am a Reader",
+        password_salt=salt,
+        password_hash=key,
+    )
 
-  users = User.query.all()
-  print(users)
+    users = User.select()
+    for u in users:
+        print(u)
 
-  posts = Post.query.all()
-  for p in posts:
-    print(p.id, p.author.username, p.body)
+    posts = Post.select()
+    for p in posts:
+        print(p.id, p.author.username, p.body)
+

@@ -2,12 +2,12 @@ import os
 import click
 
 import blogsley.config
-import blogsley.command as command
+from blogsley.command.populate import populate as do_populate
 #TODO:Put these commands into seperate files and lazy load/deferred import
 #from blogsley.command.populate import populate as do_populate
 
 
-@click.group(cls=FlaskGroup)
+@click.group()
 @click.pass_context
 def cli(ctx):
     ctx.ensure_object(dict)
@@ -46,5 +46,4 @@ def dev(ctx):
 @cli.command()
 @click.pass_context
 def populate(ctx):
-    print(vars(ctx.obj))
-    command.populate.populate()
+    do_populate()

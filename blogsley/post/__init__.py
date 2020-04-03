@@ -9,11 +9,11 @@ from blogsley.config import db
 
 class Post(db.Entity):
     id = PrimaryKey(int, auto=True)
-    status = Required(str, 16)
+    status = Required(str, 16, default='draft')
     title = Required(str, 256)
-    slug = Required(str, 256)
+    slug = Optional(str, 256)
     model = Required(str)
-    cover = Required(str, 256)
+    cover = Optional(str, 256)
     body = Required(str)
     timestamp = Required(datetime, index=True, default=datetime.utcnow())
     author = Set('User', lazy=True)

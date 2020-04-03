@@ -2,7 +2,7 @@
 import os
 import sys
 
-import starlette.config
+from starlette.config import Config
 
 basedir = os.getcwd()
 #TODO: Use TOML
@@ -57,30 +57,12 @@ else:
 '''
 
 
-class Config(starlette.config.Config):
-    if os.environ.get("DOKKU_APP_TYPE"):
-        MEDIA_ROOT = '/storage/media'
-    else:
-        MEDIA_ROOT = basedir + '/public/media'
 
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
-    DATABASE_URI = os.environ.get('DATABASE_URI') or \
-        os.path.join(db_folder, 'blogsley.db')
-    DATABASE_TRACK_MODIFICATIONS = False
-    LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
-    MAIL_SERVER = os.environ.get('MAIL_SERVER')
-    MAIL_PORT = int(os.environ.get('MAIL_PORT') or 25)
-    MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS') is not None
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    ADMINS = ['your-email@example.com']
-    LANGUAGES = ['en', 'es']
-    MS_TRANSLATOR_KEY = os.environ.get('MS_TRANSLATOR_KEY')
-    ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
-    REDIS_URL = os.environ.get('REDIS_URL') or 'redis://'
-    POSTS_PER_PAGE = 25
-
-    PUBLISH_HOOK = os.environ.get('PUBLISH_HOOK')
-
-# Instantiate the Configuration object
-config = Config()
+env = {
+    'MEDIA_ROOT': '/storage/media' if os.environ.get("DOKKU_APP_TYPE") else basedir + '/public/media',
+    'SECRET_KEY': os.environ.get('SECRET_KEY') or 'you-will-never-guess',
+    'DATABASE_URI': os.environ.get('DATABASE_URI') or os.path.join(db_folder, 'blogsley.db')
+    }
+environ = os.environ.copy()
+environ.update(env)
+config = Config(environ=environ)
