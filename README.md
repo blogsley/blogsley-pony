@@ -1,14 +1,13 @@
-# Blogsley :moon:
+# Blogsley Starlette :moon: :star:
 
 
 ## Web Publishing Evolved / CMS for the JAMstack!!!
 
-Headless CMS/GraphQL client & server built with Flask, Graphene & SqlAlchemy
+Headless CMS/GraphQL client & server built with Starlette, Ariadne & PonyORM
 
 ## Quick Links
 
-[Documentation](https://blogsley.readthedocs.io/)
-
+Coming Soon
 
 ### :warning: **This is in the early alpha stage! **
 
