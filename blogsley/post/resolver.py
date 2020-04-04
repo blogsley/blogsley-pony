@@ -3,17 +3,10 @@ import asyncio
 from pony.orm import db_session
 from blogsley.schema import query, mutation, subscription
 from blogsley.schema.schemata import Connection, Edge, Node
+from blogsley.message import MessageHub, Subscriber, Event
 from blogsley.post import Post
 
-queue = asyncio.Queue()
-"""
-  allPosts(
-    # The number of items to return per page.
-    _size: Int
-    # The pagination cursor.
-    _cursor: String
-  ): PostPage!
-"""
+
 class PostConnection(Connection):
     def __init__(self, objs):
         super().__init__(objs, edge_class=PostEdge, node_class=PostNode)
@@ -28,16 +21,23 @@ class PostNode(Node):
     def __init__(self, objekt):
         super().__init__(objekt)
 
-class Event:
-    def __init__(self, kind='default', ok=True):
-        self.kind = kind
-        self.ok = ok
-
-
 class PostEvent(Event):
-    def __init__(self, kind):
-        super().__init__(kind)
+    def __init__(self, id, kind):
+        super().__init__(id, kind)
+####
+hub = MessageHub()
 
+class PostSubscriber(Subscriber):
+    def __init__(self, id):
+        super().__init__()
+        self.id = id
+
+    async def send(self, msg):
+        print('put in queue')
+        if msg.id != self.id:
+            return
+        await self.queue.put(msg)
+####
 @query.field("post")
 @db_session
 def resolve_post(*_, id):
@@ -60,45 +60,22 @@ async def resolve_update_post(_, info, id, data):
     #print(data)
     request = info.context["request"]
     Post[id].set(**data)
-    event = PostEvent('update')
-    await queue.put(event)
+    event = PostEvent(id, 'update')
+    #await queue.put(event)
+    await hub.send(event)
 
-'''
-@subscription.source("postEvents")
-async def post_generator(obj, info):
-    yield { kind: 'waiting' }
-    for i in range(5):
-        await asyncio.sleep(1)
-        yield i
-
-
-@subscription.field("postEvents")
-def post_resolver(count, info):
-    return count + 1
-'''
-
-#
-#
-'''
-@query.field("eventPost")
-async def resolve_eventPost(obj, info, data_from_post):
-    await queue.put(data_from_post)
-    return 'It worked!'
-'''
-#
-#
 @subscription.source("postEvents")
 async def events_generator(obj, info, id=None):
     print('events_generator:begin')
-    print(obj)
-
-    while True:
-        event = await queue.get()
+    subscriber = PostSubscriber(id)
+    hub.subscribe(subscriber)
+    while subscriber.active:
+        #event = await queue.get()
+        event = await subscriber.receive()
         print('events_resolver:while')
         print(event)
         yield event
-#
-#
+
 @subscription.field("postEvents")
 def events_resolver(event, info, id=None):
     print('events_resolver')
