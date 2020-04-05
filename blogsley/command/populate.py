@@ -1,8 +1,6 @@
 if __name__ == "__main__":
     import sys, os
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
-    from blogsley.app import create_app
-    app = create_app()
 
 from pony.orm import db_session
 
@@ -270,3 +268,8 @@ def populate(app):
     for p in posts:
         print(p.id, p.author.username, p.body)
 
+
+if __name__ == "__main__":
+    from blogsley.application import create_app
+    app = create_app()
+    populate(app)
