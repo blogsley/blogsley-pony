@@ -34,9 +34,10 @@ type User {
 }
 
 input UserInput {
-  title: String!
-  model: String!
-  body: String!
+  email: String!
+  username: String!
+  firstName: String!
+  lastName: String!
 }
 
 #Post
@@ -53,13 +54,13 @@ type PostEdge {
 type Post {
   id: ID!
   title: String!
-  model: String!
+  block: String!
   body: String!
 }
 
 input PostInput {
   title: String!
-  model: String!
+  block: String!
   body: String!
 }
 

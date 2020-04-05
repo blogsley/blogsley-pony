@@ -12,7 +12,12 @@ import blogsley.model
 # Pull in our resolvers
 import blogsley.resolver
 
+app = None
+
 def create_app(debug=True):
+    global app
+    if app:
+        return app
     app = Starlette(debug=debug)
     #app = FastAPI(debug=debug)
     app.add_middleware(

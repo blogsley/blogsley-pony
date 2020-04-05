@@ -1,39 +1,14 @@
-from collections import UserDict
-import json
+from blogsley.schema.schemata import Connection, Edge, Node
 
-#class Schemata:
 
-class Connection(UserDict): 
-    def __init__(self, edges):
-        self.edges = []
+class PostNode(Node):
+    def __init__(self, objekt):
+        super().__init__(objekt)
 
-class PostConnection(UserDict):
+class PostEdge(Edge):
+    def __init__(self, obj, node_class=PostNode):
+        super().__init__(obj, node_class)
+
+class PostConnection(Connection):
     def __init__(self, objs):
-        super().__init__()
-        self.__typename = "PostConnection"
-        self.edges = []
-        self.pageInfo = None
-        for obj in objs:
-            self.edges.append(PostEdge(obj))
-
-
-class PostEdge(UserDict):
-    def __init__(self, obj):
-        super().__init__()
-        self.__typename = "PostEdge"
-        self.cursor = ""
-        self.node = PostNode(obj)
-
-
-class PostNode(UserDict):
-    def __init__(self, data):
-        super().__init__()
-        self.__typename = "Post"
-        self.update(data)
-
-
-if __name__ == "__main__":
-    data = PostConnection([{"kind": "a"}, {"kind": "b"}, {"kind": "c"}])
-    print(data)
-    print(json.dumps(data.__dict__))
-    
+        super().__init__(objs, edge_class=PostEdge, node_class=PostNode)

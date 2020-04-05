@@ -1,3 +1,9 @@
+if __name__ == "__main__":
+    import sys, os
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../')))
+    from blogsley.app import create_app
+    app = create_app()
+
 from pony.orm import db_session
 
 from blogsley.config import db
@@ -6,7 +12,7 @@ from blogsley.security import generate_password_hash
 from blogsley.user import User
 from blogsley.post import Post
 
-model = """
+block = """
 {
   "type": "page",
   "id": "FlvecVm25UUdxaHPkK372",
@@ -195,7 +201,7 @@ model = """
 
 
 @db_session
-def populate():
+def populate(app):
     (salt, key) = generate_password_hash("blogsley")
     u = User(
         username="admin",
@@ -222,7 +228,7 @@ def populate():
 
     p = Post(
         title="Pugsley, a python user group webapp",
-        model=model,
+        block=block,
         body="Pugsley is a webapp written in Python",
         author=u,
     )
@@ -240,7 +246,7 @@ def populate():
 
     p = Post(
         title="Python is cool!",
-        model=model,
+        block=block,
         body="I love writing programs in Python",
         author=u,
     )

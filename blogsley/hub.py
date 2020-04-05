@@ -23,17 +23,14 @@ class Subscriber:
     async def receive(self):
         await self.queue.get()
 
-class MessageHub:
+class Hub:
     def __init__(self):
-        self.queue = asyncio.Queue()
         self.subscribers = []
 
     def subscribe(self, subscriber):
         self.subscribers.append(subscriber)
 
     async def send(self, msg):
-        #await self.queue.put(msg)
-        #asyncio.create_task(queue.put(msg))
         asyncio.create_task(self.publish(msg))
 
     async def publish(self, msg):

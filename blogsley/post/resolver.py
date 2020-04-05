@@ -2,42 +2,12 @@ import asyncio
 
 from pony.orm import db_session
 from blogsley.schema import query, mutation, subscription
-from blogsley.schema.schemata import Connection, Edge, Node
-from blogsley.message import MessageHub, Subscriber, Event
-from blogsley.post import Post
+from blogsley.post.schema import PostConnection, PostEdge, PostNode
+from blogsley.post.hub import hub, PostSubscriber, PostEvent
+from blogsley.post.entity import Post
 
+# Queries
 
-class PostConnection(Connection):
-    def __init__(self, objs):
-        super().__init__(objs, edge_class=PostEdge, node_class=PostNode)
-
-
-class PostEdge(Edge):
-    def __init__(self, obj, node_class):
-        super().__init__(obj, PostNode)
-
-
-class PostNode(Node):
-    def __init__(self, objekt):
-        super().__init__(objekt)
-
-class PostEvent(Event):
-    def __init__(self, id, kind):
-        super().__init__(id, kind)
-####
-hub = MessageHub()
-
-class PostSubscriber(Subscriber):
-    def __init__(self, id):
-        super().__init__()
-        self.id = id
-
-    async def send(self, msg):
-        print('put in queue')
-        if msg.id != self.id:
-            return
-        await self.queue.put(msg)
-####
 @query.field("post")
 @db_session
 def resolve_post(*_, id):
@@ -53,6 +23,8 @@ def resolve_all_posts(*_):
     #print(result)
     return result
 
+# Mutations
+
 @mutation.field("updatePost")
 @db_session
 async def resolve_update_post(_, info, id, data):
@@ -63,6 +35,8 @@ async def resolve_update_post(_, info, id, data):
     event = PostEvent(id, 'update')
     #await queue.put(event)
     await hub.send(event)
+
+# Subscriptions
 
 @subscription.source("postEvents")
 async def events_generator(obj, info, id=None):
