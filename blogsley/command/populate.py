@@ -12,21 +12,21 @@ from blogsley.post import Post
 
 block = """
 {
-  "type": "page",
-  "id": "FlvecVm25UUdxaHPkK372",
+  "type": "Page",
+  "id": "UcGgZlHKqLcUtZrhD1gmc",
   "_value": null,
   "html": "",
   "children": [
     {
-      "type": "title",
-      "id": "AyvlfqRvbeGiA3qz3Hcoz",
-      "_value": "New Post",
-      "html": "<h1>New Post</h1>",
+      "type": "Title",
+      "id": "7D51SWIHpZ_8jyAxtKFIr",
+      "_value": "Bazinga!",
+      "html": "<h1>Bazinga!</h1>",
       "children": []
     },
     {
-      "type": "paragraph",
-      "id": "FfL-2TYOAcqq0JCbZ5JwF",
+      "type": "Paragraph",
+      "id": "gA1RyeFDpcEEAfBdXhQvU",
       "_value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
       "html": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>",
       "children": [],
@@ -46,8 +46,8 @@ block = """
       }
     },
     {
-      "type": "image",
-      "id": "Cu8rpdKFpRZVYaIE5J3pR",
+      "type": "Image",
+      "id": "U1AJAk6v8pOqcchxSAZOH",
       "_value": null,
       "html": "",
       "children": [],
@@ -56,8 +56,8 @@ block = """
       "height": 256
     },
     {
-      "type": "heading",
-      "id": "DYtlZEO5sl2Px2tKbs8pc",
+      "type": "Heading",
+      "id": "2wWjwHazm8jVLLZAHnbvl",
       "_value": "Heading",
       "html": "<h2>Heading</h2>",
       "children": [],
@@ -80,8 +80,8 @@ block = """
       }
     },
     {
-      "type": "paragraph",
-      "id": "ziJ1QdChrCeqcga6RSDth",
+      "type": "Paragraph",
+      "id": "BXVQVXVk5KJCh48gEubqp",
       "_value": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
       "html": "<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
       "children": [],
@@ -101,8 +101,8 @@ block = """
       }
     },
     {
-      "type": "html",
-      "id": "gAqzLTydpx4ROvrD50aRk",
+      "type": "Html",
+      "id": "tTaKSi7UPbuywEajPrcZY",
       "_value": null,
       "html": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>",
       "children": [],
@@ -131,8 +131,8 @@ block = """
       }
     },
     {
-      "type": "list",
-      "id": "KdC9aI7RS9osTwSMKBxEG",
+      "type": "List",
+      "id": "N6_UoyNfcEr24e581nsUP",
       "_value": [
         "Get Milk",
         "Get Bread",

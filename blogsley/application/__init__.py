@@ -1,6 +1,4 @@
 from starlette.applications import Starlette
-#from fastapi import FastAPI
-#from fastapi.middleware.cors import CORSMiddleware
 from starlette.middleware.cors import CORSMiddleware
 
 from ariadne.asgi import GraphQL

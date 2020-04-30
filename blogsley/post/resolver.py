@@ -44,7 +44,6 @@ async def events_generator(obj, info, id=None):
     subscriber = PostSubscriber(id)
     hub.subscribe(subscriber)
     while subscriber.active:
-        #event = await queue.get()
         event = await subscriber.receive()
         print('events_resolver:while')
         print(event)
