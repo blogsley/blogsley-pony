@@ -14,3 +14,5 @@ Coming Soon
 Your best bet is to look at the source code for information
 
 More documentation coming soon!
+
+    poetry export -f requirements.txt --output requirements.txt

@@ -56,8 +56,6 @@ else:
     pass
 '''
 
-
-
 env = {
     'MEDIA_ROOT': '/storage/media' if os.environ.get("DOKKU_APP_TYPE") else basedir + '/public/media',
     'BLOGSLEY_SECRET_KEY': os.environ.get('BLOGSLEY_SECRET_KEY') or 'you-will-never-guess',
