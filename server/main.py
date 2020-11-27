@@ -9,7 +9,7 @@ type_defs = """
 """
 '''
 
-with open("schema.graphql", "r") as fh:
+with open("schema.gql", "r") as fh:
     type_defs = fh.read()
 
 query = QueryType()

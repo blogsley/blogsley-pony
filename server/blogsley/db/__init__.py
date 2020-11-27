@@ -6,7 +6,7 @@ db = orm.Database()
 blogsley.config.db = db
 
 def load_db():
-    filename = config('DATABASE_URI')
+    filename = config('DATABASE_URL')
     print(filename)
     db.bind(provider='sqlite', filename=filename, create_db=True)
     db.generate_mapping(create_tables=True)

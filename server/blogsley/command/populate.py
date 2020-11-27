@@ -225,9 +225,9 @@ def populate(app):
     )
 
     p = Post(
-        title="Pugsley, a python user group webapp",
+        title="Blogsley, Web Publishing Evolved",
         block=block,
-        body="Pugsley is a webapp written in Python",
+        body="Blogsley is a CMS for the JAMstack",
         author=u,
     )
 

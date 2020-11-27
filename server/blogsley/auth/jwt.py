@@ -14,7 +14,7 @@ def encode_auth_token(**kwargs):
 
     return jwt.encode(
         payload,
-        config.get('SECRET_KEY')
+        config.get('BLOGSLEY_SECRET_KEY')
     )
 
 def load_user(info):
@@ -26,12 +26,12 @@ def decode_auth_token(request):
     auth_token = request.headers.get('Authorization')
     print('decode')
     print(auth_token)
-    secret = app.config.get('SECRET_KEY')
+    secret = app.config.get('BLOGSLEY_SECRET_KEY')
     print(secret)
     if not auth_token:
         auth_token = ''
     try:
-        payload = jwt.decode(auth_token, app.config.get('SECRET_KEY'))
+        payload = jwt.decode(auth_token, app.config.get('BLOGSLEY_SECRET_KEY'))
         return payload
     except jwt.ExpiredSignatureError:
         return 'Signature expired. Please log in again.'

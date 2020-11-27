@@ -60,8 +60,8 @@ else:
 
 env = {
     'MEDIA_ROOT': '/storage/media' if os.environ.get("DOKKU_APP_TYPE") else basedir + '/public/media',
-    'SECRET_KEY': os.environ.get('SECRET_KEY') or 'you-will-never-guess',
-    'DATABASE_URI': os.environ.get('DATABASE_URI') or os.path.join(db_folder, 'blogsley.db')
+    'BLOGSLEY_SECRET_KEY': os.environ.get('BLOGSLEY_SECRET_KEY') or 'you-will-never-guess',
+    'DATABASE_URL': os.environ.get('DATABASE_URL') or os.path.join(db_folder, 'blogsley.db')
     }
 environ = os.environ.copy()
 environ.update(env)
