@@ -1,1 +1,1 @@
-python develop.py
+python -m blogsley dev

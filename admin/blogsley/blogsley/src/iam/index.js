@@ -1,6 +1,7 @@
 export class Identity { }
 
 Identity.create = function (name) {
+  console.log('create identity: ', name)
   return new roles[name]()
 }
 

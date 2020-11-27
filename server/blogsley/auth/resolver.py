@@ -27,7 +27,7 @@ def resolve_login(_, info, data):
         raise Exception('No such user or invalid password!')
 
     # Identity can be any data that is json serializable
-    access_token = encode_auth_token(sub=username, id=user.id)
+    access_token = encode_auth_token(sub=username, id=user.id, role=user.role)
     print(access_token)
     # token = json.dumps({"token": access_token.decode('utf-8')})
     token = access_token.decode('utf-8')

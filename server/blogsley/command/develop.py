@@ -6,7 +6,7 @@ if __name__ == "__main__":
 
 # WARNING:  You must pass the application as an import string to enable 'reload' or 'workers'.
 def develop(app):
-    uvicorn.run('blogsley:app', host="127.0.0.1", port=8000, reload=True, log_level="info")
+    uvicorn.run('blogsley:app', host="0.0.0.0", port=8000, reload=True, log_level="info")
 
 if __name__ == "__main__":
     from blogsley.application import create_app
